@@ -5,23 +5,18 @@ import re
 from string import punctuation
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
-from deep_translator import GoogleTranslator
-
 from nltk.tokenize import word_tokenize
-# nltk.download('punkt')
-
 from nltk.corpus import stopwords
-# nltk.download('stopwords')
-
 from nltk.stem.snowball import SnowballStemmer
-
 from nltk import pos_tag
-# nltk.download('averaged_perceptron_tagger')
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
 
 
 def clean_text(text):
     punctuation_re = '[?؟!٪,،@#$%&*€+-£_~\“̯/=><.\۰):؛}{÷%("\'ًٌٍَُِّْ٠-٩]'
-    # text = GoogleTranslator(source = 'auto', target = 'ar').translate(str(text))
     emoji_re = re.compile("["
             u"\U0001F600-\U0001F64F"  # emoticons
             u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -46,9 +41,6 @@ def clean_text(text):
     stemmer = SnowballStemmer('arabic')
     # remove punct
     no_punc = re.sub(punctuation_re, ' ', str(text))
-
-    # # remove duplicated letters
-    # no_duplicate = re.sub(r'([\u0600-\u06FF])\1+', r'\1', no_punc)
 
     # # remove non-arabic letters and emojis
     no_english = re.sub(r'[a-zA-Z?]', ' ', no_punc)
